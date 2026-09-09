@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101820">
+<title>For Sir — Happy Teacher's Day</title>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<section id="opening" class="screen">
+  <div class="bg-orb o1"></div><div class="bg-orb o2"></div>
+  <div class="opening">
+    <span class="envelope">✉</span>
+    <div class="kicker">A small surprise • for our CS Sir</div>
+    <h1>One little<br>thank you.</h1>
+    <p>This isn't a Teacher's Day. But some people deserve a celebration simply for the difference they make.</p>
+    <button class="reveal-btn" onclick="openCard()">Open the surprise →</button>
+  </div>
+</section>
+
+<main id="card" class="hidden">
+<div class="card-wrap">
+  <div class="topbar"><span><i class="dot"></i>Teacher's Day 2026</span><span>Made with gratitude</span></div>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="small">For an extraordinary teacher</div>
+      <h2>Happy<br><span>Teacher's Day.</span></h2>
+      <p>
+        Sir, behind every lesson is patience, behind every correction is care,
+        and behind every student who keeps going is often a teacher who once said,
+        <em>“You can do better.”</em>
+      </p>
+    </div>
+    <div class="photo-frame">
+      <img src="images/sir-1.jpg" alt="Sir">
+      <div class="photo-label">Our CS Teacher</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="message">
+    <div class="title">A message<br>from your students.</div>
+    <div class="body">
+      Thank you for making <strong>Computer Science</strong> feel less like a subject
+      and more like a way of thinking. Thank you for the explanations, the patience,
+      the little jokes, and even the moments when the code refused to cooperate.
+      <br><br>
+      You didn't just teach us how to write programs — you taught us how to
+      <strong>think, debug, learn, and try again.</strong>
+      <div class="signature">With respect &amp; gratitude,<br>Your students</div>
+    </div>
+  </section>
+
+  <section class="tech">
+    <div class="tech-grid">
+      <div>
+        <h3>If teachers were code…</h3>
+        <p>We'd probably call you the function that never stops returning something valuable.</p>
+      </div>
+      <pre class="code"><span class="cm">// teacher.js</span>
+<span class="kw">const</span> teacher = {
+  patience: <span class="str">"infinite"</span>,
+  knowledge: <span class="str">"always growing"</span>,
+  guidance: <span class="str">"priceless"</span>,
+  impact: <span class="str">"forever"</span>
+};
+
+<span class="kw">return</span> <span class="str">"Thank you, Sir."</span>;</pre>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="gallery-head">
+      <h3>Moments worth remembering.</h3>
+      <div class="gallery-note">Sir, Unfiltered</div>
+    </div>
+    <div class="photos">
+      <img src="images/sir-5.jpg" alt="Sir — photo 1">
+      <img class="second" src="images/sir-2.jpg" alt="Sir — photo 2">
+      <img class="third" src="images/sir-3.jpg" alt="Sir — photo 3">
+      <img class="fourth" src="images/sir-4.jpg" alt="Sir — photo 4">
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="spark">✦</div>
+    <h3>Thank you for<br>being our teacher.</h3>
+    <p>May every student you guide remind you of the impact you've made.</p>
+    <div class="foot"><span>Happy Teacher's Day</span><span>•</span><span>With gratitude</span></div>
+  </section>
+</div>
+</main>
+
+<script>
+function openCard(){
+  document.getElementById('opening').classList.add('hidden');
+  document.getElementById('card').classList.remove('hidden');
+  document.body.style.background = '#f7f2e9';
+  burst();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function burst(){
+  const symbols=['✦','•','◆','✧','+'];
+  for(let i=0;i<75;i++){
+    const e=document.createElement('span');
+    e.className='confetti';
+    e.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    e.style.left=Math.random()*100+'vw';
+    e.style.fontSize=(8+Math.random()*12)+'px';
+    e.style.animationDuration=(2.4+Math.random()*3)+'s';
+    e.style.animationDelay=(Math.random()*1.2)+'s';
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),6000);
+  }
+}
+</script>
+</body>
+</html>
