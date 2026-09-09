@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Teacher's Day — Access Challenge</title>
+
+<link rel="stylesheet" href="puzzle.css">
+<link  window.location.href= "surprise.html";>
+</head>
+
+<body>
+
+<section class="puzzle-screen">
+
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <div class="terminal">
+
+    <div class="terminal-top">
+      <span class="status-dot"></span>
+      <span>TEACHER ACCESS SYSTEM</span>
+      <span class="lock">⌁</span>
+    </div>
+
+    <div class="icon">&lt;/&gt;</div>
+
+    <div class="kicker">
+      A LITTLE CHALLENGE • FOR OUR CS SIR
+    </div>
+
+    <h1>
+      Prove you're<br>
+      <span>the teacher.</span>
+    </h1>
+
+    <p class="intro">
+      Before the surprise can be opened,
+      solve these three little puzzles.
+    </p>
+
+    <div class="progress">
+      <div class="progress-text">
+        <span id="challengeText">CHALLENGE 01</span>
+        <span id="scoreText">0 / 3</span>
+      </div>
+
+      <div class="progress-line">
+        <div id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="question-area">
+
+      <div class="question-number" id="questionNumber">
+        QUESTION 01
+      </div>
+
+      <h2 id="question">
+        Loading...
+      </h2>
+
+      <div id="options" class="options"></div>
+
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <button id="actionButton"
+            class="action-button"
+            disabled
+            onclick="checkAnswer()">
+      Select an answer
+    </button>
+
+    <div class="footer">
+      <span>ENCRYPTED CONNECTION</span>
+      <span>•</span>
+      <span>ACCESS REQUIRED</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+const questions = [
+
+  {
+    question:
+      "What has keys, but cannot open a single lock?",
+
+    options: [
+      "A Keyboard",
+      "A Computer",
+      "A Password",
+      "A Server"
+    ],
+
+    answer: "A Keyboard"
+  },
+
+  {
+    question:
+      "A programmer has 3 switches outside a room and 3 bulbs inside. How can they identify every switch?",
+
+    options: [
+      "Use the switches randomly",
+      "Use heat and light",
+      "Turn all switches on",
+      "Break the door"
+    ],
+
+    answer: "Use heat and light"
+  },
+
+  {
+    question:
+      "What appears once in a minute, twice in a moment, but never in a thousand years?",
+
+    options: [
+      "The letter M",
+      "The letter T",
+      "The number 1",
+      "The letter E"
+    ],
+
+    answer: "The letter M"
+  }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let selectedAnswer = null;
+
+
+const question =
+  document.getElementById("question");
+
+const options =
+  document.getElementById("options");
+
+const message =
+  document.getElementById("message");
+
+const actionButton =
+  document.getElementById("actionButton");
+
+const questionNumber =
+  document.getElementById("questionNumber");
+
+const challengeText =
+  document.getElementById("challengeText");
+
+const scoreText =
+  document.getElementById("scoreText");
+
+const progressBar =
+  document.getElementById("progressBar");
+
+
+function loadQuestion() {
+
+  const q = questions[currentQuestion];
+
+  selectedAnswer = null;
+
+  question.textContent = q.question;
+
+  questionNumber.textContent =
+    `QUESTION ${String(currentQuestion + 1).padStart(2, "0")}`;
+
+  challengeText.textContent =
+    `CHALLENGE ${String(currentQuestion + 1).padStart(2, "0")}`;
+
+  scoreText.textContent =
+    `${score} / ${questions.length}`;
+
+  progressBar.style.width =
+    `${(currentQuestion / questions.length) * 100}%`;
+
+  options.innerHTML = "";
+
+  message.textContent = "";
+
+  message.className = "message";
+
+  actionButton.disabled = true;
+
+  actionButton.textContent =
+    "Select an answer";
+
+
+  q.options.forEach(option => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "option";
+
+    button.textContent = option;
+
+    button.onclick = function() {
+
+      document
+        .querySelectorAll(".option")
+        .forEach(btn =>
+          btn.classList.remove("selected")
+        );
+
+      button.classList.add("selected");
+
+      selectedAnswer = option;
+
+      actionButton.disabled = false;
+
+      actionButton.textContent =
+        "Submit answer";
+    };
+
+    options.appendChild(button);
+
+  });
+
+}
+
+
+function checkAnswer() {
+
+  if (!selectedAnswer) return;
+
+  const correct =
+    questions[currentQuestion].answer;
+
+
+  if (selectedAnswer !== correct) {
+
+    message.textContent =
+      "✕ Incorrect. Think like a programmer, Sir.";
+
+    message.className =
+      "message wrong";
+
+    document
+      .querySelectorAll(".option")
+      .forEach(btn => {
+
+        if (btn.textContent === selectedAnswer) {
+          btn.classList.add("incorrect");
+        }
+
+      });
+
+    actionButton.disabled = true;
+
+    setTimeout(() => {
+
+      message.textContent =
+        "Try again.";
+
+      message.className =
+        "message";
+
+      document
+        .querySelectorAll(".option")
+        .forEach(btn =>
+          btn.classList.remove("incorrect")
+        );
+
+      actionButton.disabled = false;
+
+    }, 1200);
+
+    return;
+  }
+
+
+  score++;
+
+  message.textContent =
+    "✓ Correct. Access level increased.";
+
+  message.className =
+    "message correct";
+
+
+  document
+    .querySelectorAll(".option")
+    .forEach(btn => {
+
+      btn.disabled = true;
+
+      if (btn.textContent === correct) {
+        btn.classList.add("correct");
+      }
+
+    });
+
+
+  scoreText.textContent =
+    `${score} / ${questions.length}`;
+
+
+  if (currentQuestion < questions.length - 1) {
+
+    actionButton.textContent =
+      "Next challenge";
+
+    actionButton.disabled = false;
+
+    actionButton.onclick =
+      function() {
+
+        currentQuestion++;
+
+        actionButton.onclick =
+          checkAnswer;
+
+        loadQuestion();
+
+      };
+
+  } else {
+
+    unlockCard();
+
+  }
+
+}
+
+
+function unlockCard() {
+
+  progressBar.style.width = "100%";
+
+  actionButton.textContent =
+    "ACCESS GRANTED ✓";
+
+  actionButton.disabled = true;
+
+  message.textContent =
+    "✓ All challenges solved. Welcome, Sir.";
+
+  message.className =
+    "message correct";
+
+
+  document
+    .querySelector(".terminal")
+    .classList.add("unlocked");
+
+
+  setTimeout(() => {
+
+    /*
+     * CHANGE index.html TO THE FILE NAME
+     * OF YOUR EXISTING GREETING CARD.
+     */
+
+    window.location.href = "index.html";
+
+  }, 1800);
+
+}
+
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
